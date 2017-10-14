@@ -14,3 +14,5 @@ You can see this project here:
 - https://codepen.io/DizNicolasAmor/full/NayJmm/
 
 This project is a challenge posed by FreeCodeCamp. Be free to use it and change it. 
+
+![CampersRankingREADME](/images/CampersRankingREADME.png?raw=true)
