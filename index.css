@@ -1,0 +1,59 @@
+@import url("https://fonts.googleapis.com/css?family=Kaushan+Script");
+h1, h2, h3, h4 {
+  font-weight: 600;
+  text-align: center;
+  cursor: default; }
+
+.title {
+  font-family: "Kaushan Script";
+  font-size: 6vw; }
+
+.subtitle {
+  font-family: "Kaushan Script";
+  font-size: 4.5vw; }
+
+.container {
+  border-radius: 2%;
+  width: 80vw;
+  min-width: 350px;
+  max-width: 45em;
+  padding: 1.5em;
+  margin: 3% auto;
+  box-shadow: 0.5em 0.5em 0.5em rgba(0, 0, 0, 0.4);
+  background: #A1FFCE;
+  background: -webkit-linear-gradient(to right, #FAFFD1, #A1FFCE);
+  background: linear-gradient(to right, #FAFFD1, #A1FFCE); }
+
+.subcontainer {
+  border-radius: 2%;
+  color: White;
+  background-color: #c8dcc8;
+  background-color: rgba(0, 0, 0, 0.25);
+  margin-bottom: 1px; }
+  .subcontainer .userName {
+    text-align: left !important; }
+
+img {
+  width: 35px;
+  border-radius: 10%; }
+
+button {
+  font-family: "Kaushan Script" !important;
+  font-size: 2.3vw !important;
+  text-align: center !important;
+  opacity: 0.7 !important;
+  background: none !important;
+  border: none; }
+  button:hover {
+    opacity: 1 !important;
+    font-size: 2.5vw !important; }
+
+.selected {
+  opacity: 1 !important;
+  text-decoration: underline !important; }
+
+.nonSelected {
+  opacity: 0.7 !important;
+  text-decoration: none !important; }
+
+/*# sourceMappingURL=index.css.map */

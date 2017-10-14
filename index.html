@@ -1,0 +1,134 @@
+<!--
+Nico Diz
+
+https://github.com/DizNicolasAmor/
+
+CampersRanking shows the 100 FCC campers with more points. 
+
+I use React.js, jQuery and AJAX. 
+
+https://codepen.io/DizNicolasAmor/pen/NayJmm
+https://diznicolasamor.github.io/CampersRanking/
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="height=device-height, initial-scale=1, user-scalable=no">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="index.css">
+    
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script type="text/babel">
+
+
+      class Row extends React.Component {
+        render() {
+          return (
+            <div className="subcontainer">
+              <div className="row">
+                <h4 className="col-xs-1">{this.props.id}</h4>
+                <h4 className="col-xs-6 userName">
+                  <img style={{width: '30px'}} src={this.props.value.img}/>
+                  <a href={"https://www.freecodecamp.com/"+this.props.value.username} target="_blank">{` `+this.props.value.username}</a>
+                </h4>
+                <h4 className="col-xs-2">{this.props.value.recent}</h4>
+                <h4 className="col-xs-2">{this.props.value.alltime}</h4>
+              </div>
+            </div>
+          );
+        }
+      }
+
+
+      class App extends React.Component {
+        constructor(props) {
+          super(props);
+          this.state = {
+            campers: [],
+            whichAPI: 'recent',
+            isDefaultRanking: true
+          };
+
+          this.getData = this.getData.bind(this);
+          this.sortData = this.sortData.bind(this);
+        }
+
+        getData(){
+          $.ajax({
+            type: 'GET',
+            dataType: 'json',
+            url: `https://fcctop100.herokuapp.com/api/fccusers/top/${this.state.whichAPI}`,
+            error: (error) => {
+              console.log('AJAX ERROR: ' + error);
+            },
+            success: (data) => {
+              this.setState({campers: data});
+            }
+          });  
+        }
+        
+        sortData(yardstick){
+          if(yardstick !== this.state.whichAPI){
+            this.setState({
+              whichAPI: yardstick,
+              isDefaultRanking: !this.state.isDefaultRanking
+            }, () => {
+              this.getData();
+            });
+          }
+        }
+        
+        componentDidMount(){
+          this.getData();
+        }
+        
+        render() {
+          return (
+            <div className="container">
+              <h1 className="title">Campers Ranking</h1>
+              <br />
+              
+              <div className="row">
+                <h2>
+                  <div className="col-xs-2 subtitle"> </div>
+                  <div className="col-xs-4 subtitle">Name </div>
+                  <div className="col-xs-6 subtitle">Points 
+                    <h5>
+                      <button id="optionsLastDays"
+                        onClick={this.sortData.bind(this, 'recent')}
+                        className={this.state.isDefaultRanking ? 'selected' : 'nonSelected'}
+                        >Last 30 days
+                      </button>
+                      <button id="optionsAllTime"
+                        onClick={this.sortData.bind(this, 'alltime')}
+                        className={!this.state.isDefaultRanking ? 'selected' : 'nonSelected'}
+                        >All time</button>
+                    </h5>
+                  </div>
+                </h2>
+              </div>
+
+              {this.state.campers.map((row, index) => {
+                return <Row key={index} value={row} id={index + 1} />
+              })}
+
+            </div>
+          );
+        }
+      }
+
+      ReactDOM.render(<App />, document.getElementById("root"));
+    </script>
+    <title>CampersRanking</title>
+  </head>
+
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
